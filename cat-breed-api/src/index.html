@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CatAPI</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="lib/thecatapi.js"></script>
+</head>
+
+<body>
+
+
+    <div class="form-wrapper">
+        <form id="search-breed">
+            <input class="form-control" type="text" id="breed-input" placeholder="Enter breed name">
+            
+        </form>
+    </div>
+
+    <div class="display-data">
+        <div class="display-image"></div>
+        <div class="display-text" id="display-text"></div>
+    </div>
+  <script>
+        function updateElements({ image, decription }) {
+            const desc = document.getElementById('display-text')
+            const img = document.getElementById('image')
+
+            desc.textContent = decription
+            img.src = image
+        }
+
+        async function handleSubmit(e){
+            e.preventDefault();
+            const breed = document.getElementById('breed-input').value
+            try {
+                const found = await searchBreed(breed)
+                updateElements(found)
+            } catch {
+                console.log("Could not find breed")
+            }
+        }
+
+        const submit = document.getElementById('breed-input')
+        submit.addEventListener('submit', handleSubmit)
+
+    </script>
+
+</body>
+
+</html>
